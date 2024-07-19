@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        profilePicture: {
+            type: String,
+            default: "https://pixabay.com/vectors/graduation-profile-picture-icon-1345143/",
+        },
     },
     { timestamps: true }
 );
