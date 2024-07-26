@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
+
 export const test = (req, res) => {
     res.send("Test route");
 };
@@ -57,6 +58,15 @@ export const deleteUser = async (req, res, next) => {
     try {
         await User.findByIdAndDelete(req.params.userId);
         res.status(200).json("User has been deleted");
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const signout = (req, res) => {
+    try {
+        res.clearCookie("access_token");
+        res.status(200).json("You have been signed out");
     } catch (error) {
         next(error);
     }

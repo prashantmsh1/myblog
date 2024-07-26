@@ -14,6 +14,7 @@ import {
     deleteUserStart,
     deleteUserFailure,
     deleteUserSuccess,
+    signoutSuccess,
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 const DashProfile = () => {
@@ -132,6 +133,22 @@ const DashProfile = () => {
             dispatch(deleteUserFailure(error.message));
         }
     };
+    const handleSignOut = async () => {
+        try {
+            const res = await fetch("/api/user/signout", {
+                method: "POST",
+            });
+            const data = await res.json();
+            if (res.ok === true) {
+                dispatch(signoutSuccess());
+            }
+            if (res.ok === false) {
+                console.log(data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     console.log(imageFileUrl);
 
     return (
@@ -196,7 +213,7 @@ const DashProfile = () => {
             </form>
             <div className="flex justify-between text-red-500 cursor-pointer">
                 <span onClick={() => setShowDelete(true)}>Delete Account</span>
-                <span>Sign Out</span>
+                <span onClick={() => handleSignOut()}>Sign Out</span>
             </div>
             {updateUserSuccess && (
                 <Alert
