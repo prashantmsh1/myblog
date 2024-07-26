@@ -32,7 +32,13 @@ export const signin = async (req, res, next) => {
         if (!validPassword) {
             return next(errorHandler(400, "Invalid Credentials"));
         }
-        const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+        const token = jwt.sign(
+            { id: validUser._id, isAdmin: validUser.isAdmin },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1d",
+            }
+        );
         const { password: userPassword, ...user } = validUser._doc;
         res.status(200).cookie("access_token", token, { httpOnly: true }).json(user);
     } catch (error) {
@@ -59,13 +65,19 @@ export const google = async (req, res, next) => {
                 profilePicture: googlePhotoUrl,
             });
             await newUser.save();
-            const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-                expiresIn: "1d",
-            });
+            const token = jwt.sign(
+                { id: newUser._id, isAdmin: newUser.isAdmin },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: "1d",
+                }
+            );
             const { password, ...userData } = newUser._doc;
             res.status(200).cookie("access_token", token, { httpOnly: true }).json(userData);
         }
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, {
+            expiresIn: "1d",
+        });
         const { password, ...userData } = user._doc;
         res.status(200).cookie("access_token", token, { httpOnly: true }).json(userData);
     } catch (error) {

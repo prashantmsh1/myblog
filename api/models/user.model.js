@@ -18,7 +18,11 @@ const userSchema = new mongoose.Schema(
         },
         profilePicture: {
             type: String,
-            default: "https://pixabay.com/vectors/graduation-profile-picture-icon-1345143/",
+            default: "https://cdn.pixabay.com/photo/2016/04/22/04/57/graduation-1345143_1280.png",
+        },
+        isAdmin: {
+            type: Boolean,
+            default: false,
         },
     },
     { timestamps: true }
