@@ -17,8 +17,9 @@ import {
     signoutSuccess,
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 const DashProfile = () => {
-    const { currentUser, error } = useSelector((state) => state.user);
+    const { currentUser, error, loading } = useSelector((state) => state.user);
     const [imageFile, setImageFile] = React.useState(null);
     const [imageFileUrl, setImageFileUrl] = React.useState(null);
     const [imageFileUploadProgress, setImageFileUploadProgress] = React.useState(0);
@@ -207,9 +208,20 @@ const DashProfile = () => {
                     type="password"
                     id="password"
                     placeholder="******"></TextInput>
-                <Button onClick={(e) => handleFormSubmit(e)} outline gradientDuoTone="purpleToBlue">
-                    Update
+                <Button
+                    disabled={loading || imageFileUploading}
+                    onClick={(e) => handleFormSubmit(e)}
+                    outline
+                    gradientDuoTone="purpleToBlue">
+                    {loading ? "Loading..." : "Update"}
                 </Button>
+                {currentUser.isAdmin && (
+                    <Link to={"/dashboard/create-post"}>
+                        <Button type="button" gradientDuoTone="purpleToPink" className="w-full ">
+                            Create a Post
+                        </Button>
+                    </Link>
+                )}
             </form>
             <div className="flex justify-between text-red-500 cursor-pointer">
                 <span onClick={() => setShowDelete(true)}>Delete Account</span>
