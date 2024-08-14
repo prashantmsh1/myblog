@@ -139,7 +139,7 @@ const DashPost = () => {
                     <div className="flex flex-col gap-4 ">
                         <HiOutlineExclamationCircle className="self-center text-4xl text-red-500" />
                         <h1 className="text-xl font-semibold ">
-                            Are you sure you want to delete your account?
+                            Are you sure you want to delete this post?
                         </h1>
                         <div className="flex justify-center gap-4 ">
                             <Button onClick={() => setShowModal(false)} outline color="failure">

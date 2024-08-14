@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
+import UpdatePost from "./pages/UpdatePost";
 function App() {
     return (
         <BrowserRouter>
@@ -29,6 +30,7 @@ function App() {
                 <Route element={<OnlyAdminPrivateRoute />}>
                     <Route path="/dashboard/create-post" element={<CreatePost />} />
                 </Route>
+                <Route path="/update-post/:postId" element={<UpdatePost />}></Route>
             </Routes>
             <FooterCom />
         </BrowserRouter>
