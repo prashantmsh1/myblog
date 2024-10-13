@@ -4,7 +4,6 @@ import { Table } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { set } from "mongoose";
 
 const DashPost = () => {
     const { currentUser } = useSelector((state) => state.user);

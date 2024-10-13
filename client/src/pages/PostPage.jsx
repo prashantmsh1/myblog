@@ -1,6 +1,8 @@
 import { Button, Spinner } from "flowbite-react";
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import CallToAction from "../components/CallToAction";
+import CommentSection from "../components/CommentSection";
 const PostPage = () => {
     const { postSlug } = useParams();
     const [loading, setLoading] = React.useState(true);
@@ -38,7 +40,7 @@ const PostPage = () => {
         );
     }
     return (
-        <main className="flex flex-col h-screen max-w-6xl p-3 mx-auto ">
+        <main className="flex flex-col max-w-6xl p-3 mx-auto ">
             <h1 className="max-w-2xl p-3 mx-auto mt-10 font-serif text-3xl text-center lg:text-4xl">
                 {post && post.title}
             </h1>
@@ -48,19 +50,26 @@ const PostPage = () => {
                 </Button>
             </Link>
             <img
-                className="w-full max-h-[600px] object-cover h-auto max-w-2xl mx-auto mt-10"
+                className="w-full max-h-[600px] object-cover h-auto max-w-3xl mx-auto mt-10"
                 src={post && post.images[0]}
                 alt={post && post.title}
             />
-            <div className="flex items-center justify-between w-full max-w-2xl p-3 mx-auto text-xs border-b border-slate-300">
+            <div className="flex items-center justify-between w-full max-w-3xl p-3 mx-auto text-xs border-b border-slate-300">
                 <span>{post && new Date(post.updatedAt).toLocaleDateString()}</span>
                 <span className="italic ">
                     {post && (post.content.length / 1000).toFixed(0)} mins read
                 </span>
             </div>
-            <div
-                className="w-full max-w-2xl p-3 mx-auto post-content"
-                dangerouslySetInnerHTML={{ __html: post && post.content }}></div>
+            {post.content && (
+                <div
+                    className="w-full max-w-3xl p-3 mx-auto post-content"
+                    dangerouslySetInnerHTML={{ __html: post && post.content }}></div>
+            )}
+
+            <div className="w-full max-w-4xl mx-auto ">
+                <CallToAction />
+            </div>
+            <CommentSection postId={post._id} />
         </main>
     );
 };
